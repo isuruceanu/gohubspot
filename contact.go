@@ -41,7 +41,7 @@ func (s *ContactsService) DeleteById(id int) (*ContactDeleteResult, error) {
 	return res, err
 }
 
-func (s *ContactService) Merge(primaryID, secondaryID int) error {
+func (s *ContactsService) Merge(primaryID, secondaryID int) error {
 	url := fmt.Sprintf("/contacts/v1/contact/merge-vids/%d/", primaryID)
 	secondary := struct {
 		SecondaryID int `json:"vidToMerge"`
