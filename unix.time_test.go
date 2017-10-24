@@ -63,6 +63,23 @@ func TestCanUnmarshalUnixTimeJson(t *testing.T) {
 
 }
 
+func TestUnmarshalUnitTime(t *testing.T) {
+	model := struct {
+		Size int      `json:"size"`
+		Time UnixTime `json:"created_at"`
+	}{}
+	jsonObj := `
+		{"size": 34, "created_at":%s}
+	`
+	data := fmt.Sprintf(jsonObj, "1508833601689")
+
+	if err := json.Unmarshal([]byte(data), &model); err != nil {
+		t.Error(err)
+	}
+
+	t.Errorf("time is: %s", model.Time)
+}
+
 func checkTime(unixTime *UnixTime) error {
 
 	if unixTime.Year() != 2016 {

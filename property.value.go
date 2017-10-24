@@ -6,4 +6,11 @@ type Property struct {
 	Versions Versions    `json:"versions,omitempty"`
 }
 
-type Properties []Property
+type Properties struct {
+	Properties []Property `json:"properties"`
+}
+
+// AddProperty addes a new property to list
+func (p *Properties) AddProperty(prop string, value interface{}) {
+	p.Properties = append(p.Properties, Property{Property: prop, Value: value})
+}

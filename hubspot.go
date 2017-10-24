@@ -22,8 +22,9 @@ type HubspotClient struct {
 	BaseURL       *url.URL
 	UserAgent     string
 	// Services used for talking to different parts of the API
-	ContactLists *ContactListsService
-	Contacts     *ContactsService
+	ContactLists      *ContactListsService
+	Contacts          *ContactsService
+	ContactProperties *ContactPropertiesService
 }
 
 type service struct {
@@ -50,6 +51,7 @@ func NewHubspotClient(auth Authenticator) *HubspotClient {
 	r.common.client = r
 	r.ContactLists = (*ContactListsService)(&r.common)
 	r.Contacts = (*ContactsService)(&r.common)
+	r.ContactProperties = (*ContactPropertiesService)(&r.common)
 
 	return r
 }
@@ -74,6 +76,14 @@ func (c *HubspotClient) RunGet(url string, res interface{}) error {
 
 func (c *HubspotClient) RunPost(url string, body, res interface{}) error {
 	if req, err := c.Post(url, body); err != nil {
+		return err
+	} else {
+		return c.Do(req, res)
+	}
+}
+
+func (c *HubspotClient) RunPut(url string, body, res interface{}) error {
+	if req, err := c.NewRequest(http.MethodPut, url, body); err != nil {
 		return err
 	} else {
 		return c.Do(req, res)
@@ -115,6 +125,13 @@ func (c *HubspotClient) NewRequest(method, urlStr string, body interface{}) (*ht
 	if err != nil {
 		return nil, err
 	}
+
+	// body, err = ioutil.ReadAll(req.Body)
+	// if err != nil {
+	// 	log.Fatalf("ERROR: %s", err)
+	// }
+
+	// fmt.Printf("%s", body)
 
 	if body != nil {
 		req.Header.Set("Accept", "application/json")

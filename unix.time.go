@@ -10,13 +10,22 @@ type UnixTime struct {
 
 var nilTime = (time.Time{}).UnixNano()
 
+func (t *UnixTime) ToDate() {
+	nanos := t.UnixNano()
+	if nanos == nilTime {
+		return
+	}
+
+	t.Time = time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+}
+
 func (t *UnixTime) MarshalJSON() ([]byte, error) {
 	nanos := t.UnixNano()
 	if nanos == nilTime {
 		return []byte("null"), nil
 	}
 
-	return []byte(fmt.Sprintf("\"%d\"", nanos/1000000)), nil
+	return []byte(fmt.Sprintf("%d", nanos/1000000)), nil
 }
 
 func (t *UnixTime) UnmarshalJSON(data []byte) error {
