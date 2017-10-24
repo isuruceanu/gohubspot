@@ -1,8 +1,9 @@
 package gohubspot
 
-import "testing"
-import "fmt"
-import "gohubspot/contactproperty"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestContactPropertiesService_GetAll(t *testing.T) {
 	setup()
@@ -22,8 +23,8 @@ func TestContactPropertiesService_Create(t *testing.T) {
 	setup()
 	defer teardown()
 
-	property := ContactProperty{Name: "lastlogindatetime",
-		Label: "Last Login DateTime", DataType: contactproperty.DateTime,
+	property := ItemProperty{Name: "lastlogindatetime",
+		Label: "Last Login DateTime", DataType: DateTime,
 		FormField: false, GroupName: "contactinformation"}
 
 	prop, err := testclient.ContactProperties.Create(property)

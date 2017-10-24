@@ -2,108 +2,79 @@ package gohubspot
 
 import (
 	"fmt"
-	"gohubspot/contactproperty"
 )
 
+// ContactPropertiesService - Contact properties are used to store specific information for each of your contact records
 type ContactPropertiesService service
 
-type ContactPropertyOption struct {
-	Description  string      `json:"description"`
-	Label        string      `json:"label"`
-	DisplayOrder int         `json:"displayOrder"`
-	Hidden       bool        `json:"hidden"`
-	Value        interface{} `json:"value"`
-}
-
-type ContactProperty struct {
-	Name                          string                    `json:"name"`
-	Label                         string                    `json:"label,omitempty"`
-	Description                   string                    `json:"description,omitempty"`
-	DataType                      contactproperty.DataType  `json:"type,omitempty"`
-	FieldType                     contactproperty.FieldType `json:"fieldType,omitempty"`
-	GroupName                     string                    `json:"groupName,omitempty"`
-	Options                       []ContactPropertyOption   `json:"options"`
-	Deleted                       bool                      `json:"deleted"`
-	FormField                     bool                      `json:"formField"`
-	DisplayOrder                  int                       `json:"displayOrder"`
-	ReadOnlyValue                 bool                      `json:"readOnlyValue"`
-	ReadOnlyDefinition            bool                      `json:"readOnlyDefinition"`
-	Hidden                        bool                      `json:"hidden"`
-	MutableDefinitionNotDeletable bool                      `json:"mutableDefinitionNotDeletable"`
-	Calculated                    bool                      `json:"calculated"`
-	ExternalOptions               bool                      `json:"externalOptions"`
-}
-
-type ContactProperties []ContactProperty
-
-type ContactPropertyGroup struct {
-	Name           string `json:"name"`
-	DisplayName    string `json:"displayName"`
-	DisplayOrder   int    `json:"displayOrder"`
-	HubspotDefined bool   `json:"hubspotDefined"`
-}
-
-type ContactPropertyGroups []ContactPropertyGroup
-
-func (s *ContactPropertiesService) GetAll() (*ContactProperties, error) {
+// GetAll gets all contacts properties
+func (s *ContactPropertiesService) GetAll() (*ItemProperties, error) {
 	url := "/properties/v1/contacts/properties"
-	res := new(ContactProperties)
+	res := new(ItemProperties)
 	err := s.client.RunGet(url, res)
 
 	return res, err
 }
 
-func (s *ContactPropertiesService) GetByName(name string) (*ContactProperty, error) {
+// GetByName gets property by name
+func (s *ContactPropertiesService) GetByName(name string) (*ItemProperty, error) {
 	url := fmt.Sprintf("/properties/v1/contacts/properties/named/%s", name)
-	res := new(ContactProperty)
+	res := new(ItemProperty)
 	err := s.client.RunGet(url, res)
 	return res, err
 }
 
-func (s *ContactPropertiesService) Create(property ContactProperty) (*ContactProperty, error) {
+// Create create a contact property
+func (s *ContactPropertiesService) Create(property ItemProperty) (*ItemProperty, error) {
 	url := "/properties/v1/contacts/properties"
-	res := new(ContactProperty)
+	res := new(ItemProperty)
 	if property.Options == nil {
-		property.Options = []ContactPropertyOption{}
+		property.Options = []ItemPropertyOption{}
 	}
 	err := s.client.RunPost(url, property, res)
 	return res, err
 }
 
-func (s *ContactPropertiesService) Update(name string, update ContactProperty) (*ContactProperty, error) {
+// Update updates an existing property by it name
+func (s *ContactPropertiesService) Update(name string, update ItemProperty) (*ItemProperty, error) {
 	url := fmt.Sprintf("/properties/v1/contacts/properties/named/%s", name)
-	res := new(ContactProperty)
+	res := new(ItemProperty)
 	err := s.client.RunPut(url, update, res)
 	return res, err
 }
 
+// Delete deletes a contact property by name
 func (s *ContactPropertiesService) Delete(name string) error {
 	url := fmt.Sprintf("/properties/v1/contacts/properties/named/%s", name)
 	err := s.client.RunDelete(url, nil)
 	return err
 }
 
-func (s *ContactPropertiesService) GetGroups() (*ContactPropertyGroups, error) {
+// GetGroups gets all contacts property groups
+func (s *ContactPropertiesService) GetGroups() (*ItemPropertyGroups, error) {
 	url := "/properties/v1/contacts/groups"
-	res := new(ContactPropertyGroups)
+	res := new(ItemPropertyGroups)
 	err := s.client.RunGet(url, res)
 	return res, err
 }
 
-func (s *ContactPropertiesService) CreateGroup(group ContactPropertyGroup) (*ContactPropertyGroup, error) {
+// CreateGroup creates a contact property group
+func (s *ContactPropertiesService) CreateGroup(group ItemPropertyGroup) (*ItemPropertyGroup, error) {
 	url := "/properties/v1/contacts/groups"
-	res := new(ContactPropertyGroup)
+	res := new(ItemPropertyGroup)
 	err := s.client.RunPost(url, group, res)
 	return res, err
 }
 
-func (s *ContactPropertiesService) UpdateGroup(name string, update ContactPropertyGroup) (*ContactPropertyGroup, error) {
+// UpdateGroup updates contact property group
+func (s *ContactPropertiesService) UpdateGroup(name string, update ItemPropertyGroup) (*ItemPropertyGroup, error) {
 	url := fmt.Sprintf("/properties/v1/contacts/groups/named/%s", name)
-	res := new(ContactPropertyGroup)
+	res := new(ItemPropertyGroup)
 	err := s.client.RunPut(url, update, res)
 	return res, err
 }
 
+// DeleteGroup deletes a contact property group
 func (s *ContactPropertiesService) DeleteGroup(name string) error {
 	url := fmt.Sprintf("/properties/v1/contacts/groups/named/%s", name)
 	err := s.client.RunDelete(url, nil)
