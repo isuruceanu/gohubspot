@@ -1,4 +1,4 @@
-package processing
+package gohubspot
 
 type ProcessingType string
 

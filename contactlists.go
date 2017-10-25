@@ -2,7 +2,7 @@ package gohubspot
 
 import (
 	"fmt"
-	"gohubspot/processing"
+	
 )
 
 type ContactListsService service
@@ -22,7 +22,7 @@ type ContactList struct {
 }
 
 type Metadata struct {
-	Processing processing.ProcessingType `json:"processing"`
+	Processing ProcessingType `json:"processing"`
 
 	Size int `json:"size"`
 	// Integer, read-only; The number of contacts in the list.
