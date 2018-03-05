@@ -43,31 +43,50 @@ func (s *FormService) AddOptions(data url.Values) *FormService {
 }
 
 func (s *FormService) SetHubspotCookie(cookie string) *FormService {
-
+	if cookie == "" {
+		return s
+	}
 	s.checkHsContext()
 	s.hsContext.Hutk = cookie
 	return s
 }
 
 func (s *FormService) SetRemoteIpAddress(url string) *FormService {
+	if url == "" {
+		return s
+	}
+
 	s.checkHsContext()
 	s.hsContext.IPAddress = url
 	return s
 }
 
 func (s *FormService) SetPageUrl(url string) *FormService {
+
+	if url == "" {
+		return s
+	}
+
 	s.checkHsContext()
 	s.hsContext.PageURL = url
 	return s
 }
 
 func (s *FormService) SetPageName(name string) *FormService {
+	if name == "" {
+		return s
+	}
+
 	s.checkHsContext()
 	s.hsContext.PageName = name
 	return s
 }
 
 func (s *FormService) SetReturnUrl(url string) *FormService {
+	if url == "" {
+		return s
+	}
+
 	s.checkHsContext()
 	s.hsContext.RedirectURL = url
 	return s
