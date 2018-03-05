@@ -104,7 +104,6 @@ func (s *FormService) SubmitForm(portalID int, formID string) error {
 	if err != nil {
 		return err
 	}
-	DumpRequest(req, true)
 	return s.client.Do(req, nil)
 }
 
