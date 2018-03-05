@@ -25,8 +25,9 @@ type HubspotClient struct {
 	ContactLists      *ContactListsService
 	Contacts          *ContactsService
 	ContactProperties *ContactPropertiesService
-
 	CompanyProperties *CompanyPropertiesService
+	Companies         *CompaniesService
+	Forms             *FormService
 }
 
 type service struct {
@@ -55,6 +56,9 @@ func NewHubspotClient(auth Authenticator) *HubspotClient {
 	r.Contacts = (*ContactsService)(&r.common)
 	r.ContactProperties = (*ContactPropertiesService)(&r.common)
 	r.CompanyProperties = (*CompanyPropertiesService)(&r.common)
+	r.Companies = (*CompaniesService)(&r.common)
+	//r.Forms = (*FormService)(&r.common)
+	r.Forms = &FormService{service: r.common}
 
 	return r
 }

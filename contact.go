@@ -5,7 +5,14 @@ import "fmt"
 type ContactsService service
 
 type Contact struct {
-	Properties Properties `json:"properties"`
+	Vid          int        `json:"vid"`
+	CanonicalVid int        `json:"canonical-vid"`
+	MergedVids   []int      `json:"merged-vids"`
+	PortalID     int        `json:"portal-id"`
+	IsContact    bool       `json:"is-contact"`
+	ProfileToken string     `json:"profile-token"`
+	ProfileURL   string     `json:"profile-url"`
+	Properties   Properties `json:"properties"`
 }
 
 func (s *ContactsService) Create(properties Properties) (*IdentityProfile, error) {
