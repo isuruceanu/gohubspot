@@ -105,7 +105,8 @@ func (s *FormService) SubmitForm(portalID int, formID string) error {
 		return err
 	}
 
-	DumpRequest(req, true)
+	s.options = nil
+	s.hsContext = nil
 
 	return s.client.Do(req, nil)
 }
