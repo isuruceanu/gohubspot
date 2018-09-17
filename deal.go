@@ -9,10 +9,10 @@ type Deal struct {
 	Associations Properties `json:"associations"`
 }
 
-func (s *DealsService) Create(properties Properties) (*IdentityProfile, error) {
+func (s *DealsService) Create(deal Deal) (*IdentityProfile, error) {
 	url := "/deals/v1/deal"
 	res := new(IdentityProfile)
-	err := s.client.RunPost(url, properties, res)
+	err := s.client.RunPost(url, deal, res)
 	return res, err
 }
 
