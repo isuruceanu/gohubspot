@@ -5,23 +5,32 @@ import "fmt"
 type DealsService service
 
 type Deal struct {
-	Properties   Properties `json:"properties"`
-	Associations Properties `json:"associations"`
+	Properties   Properties   `json:"properties"`
+	Associations Associations `json:"associations"`
 }
 
-func (s *DealsService) Create(deal Deal) (*IdentityProfile, error) {
+type DealResponse struct {
+	PortalId     int          `json:"portalId"`
+	DealId       int          `json:"dealId"`
+	IsDeleted    bool         `json:"isDeleted"`
+	Properties   Properties   `json:"properties"`
+	Associations Associations `json:"associations"`
+}
+
+func (s *DealsService) Create(deal Deal) (*DealResponse, error) {
 	url := "/deals/v1/deal"
-	res := new(IdentityProfile)
+	res := new(DealResponse)
 	err := s.client.RunPost(url, deal, res)
 	return res, err
 }
 
-func (s *DealsService) Update(dealId int, properties Properties) error {
+func (s *DealsService) Update(dealId int, deal Deal) error {
 	url := fmt.Sprintf("/deals/v1/deal/%d", dealId)
-	return s.client.RunPost(url, properties, nil)
+	res := new(DealResponse)
+	return s.client.RunPost(url, deal, res)
 }
 
-func (s *DealsService) associateDealToContact(dealId int, contactId int, properties Properties) error {
+func (s *DealsService) associateDealToContact(dealId int, contactId int, deal Deal) error {
 	url := fmt.Sprintf("/deals/v1/deal/%d/associations/CONTACT?id=%d", dealId, contactId)
-	return s.client.RunPost(url, properties, nil)
+	return s.client.RunPost(url, deal, nil)
 }
