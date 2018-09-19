@@ -24,10 +24,11 @@ func (s *DealsService) Create(deal Deal) (*DealResponse, error) {
 	return res, err
 }
 
-func (s *DealsService) Update(dealId int, deal Deal) error {
+func (s *DealsService) Update(dealId int, deal Deal) (*DealResponse, error) {
 	url := fmt.Sprintf("/deals/v1/deal/%d", dealId)
 	res := new(DealResponse)
-	return s.client.RunPost(url, deal, res)
+	err := s.client.RunPost(url, deal, res)
+	return res, err
 }
 
 func (s *DealsService) associateDealToContact(dealId int, contactId int, deal Deal) error {
