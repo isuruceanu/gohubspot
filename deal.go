@@ -20,14 +20,14 @@ type DealResponse struct {
 func (s *DealsService) Create(deal Deal) (*DealResponse, error) {
 	url := "/deals/v1/deal"
 	res := new(DealResponse)
-	err := s.client.RunPost(url, deal, res)
+	err := s.client.RunPut(url, deal, res)
 	return res, err
 }
 
 func (s *DealsService) Update(dealId int, deal Deal) (*DealResponse, error) {
 	url := fmt.Sprintf("/deals/v1/deal/%d", dealId)
 	res := new(DealResponse)
-	err := s.client.RunPost(url, deal, res)
+	err := s.client.RunPut(url, deal, res)
 	return res, err
 }
 
