@@ -6,3 +6,8 @@ type Associations struct {
 	AssociatedDealIds    string `json:"associatedDealIds"`
 }
 
+func (a *Associations) SetAssociation(value Associations) {
+	a.AssociatedVids = value.AssociatedVids
+	a.AssociatedCompanyIds = value.AssociatedCompanyIds
+	a.AssociatedDealIds = value.AssociatedDealIds
+}

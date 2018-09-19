@@ -34,7 +34,7 @@ type Properties struct {
 	Properties []Property `json:"properties"`
 }
 
-// AddProperty addes a new property to list
+// AddProperty adds a new property to list
 func (p *Properties) AddProperty(prop string, value interface{}) {
 	p.Properties = append(p.Properties, Property{Property: prop, Value: value})
 }
