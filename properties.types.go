@@ -64,6 +64,7 @@ type ItemProperty struct {
 	ReadOnlyDefinition            bool                 `json:"readOnlyDefinition,omitempty"`
 	Hidden                        bool                 `json:"hidden,omitempty"`
 	MutableDefinitionNotDeletable bool                 `json:"mutableDefinitionNotDeletable,omitempty"`
+	SearchableInGlobalSearch      bool                 `json:"searchableInGlobalSearch,omitempty"`
 	Calculated                    bool                 `json:"calculated"`
 	ExternalOptions               bool                 `json:"externalOptions"`
 }
