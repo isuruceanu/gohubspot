@@ -48,6 +48,14 @@ func (s *ContactsService) DeleteById(id int) (*ContactDeleteResult, error) {
 	return res, err
 }
 
+func (s *ContactsService) DeleteByEmail(email string) (*ContactDeleteResult, error) {
+	url := fmt.Sprintf("/contacts/v1/contact/email/%s", email)
+
+	res := new(ContactDeleteResult)
+	err := s.client.RunDelete(url, res)
+	return res, err
+}
+
 func (s *ContactsService) Merge(primaryID, secondaryID int) error {
 	url := fmt.Sprintf("/contacts/v1/contact/merge-vids/%d/", primaryID)
 	secondary := struct {
