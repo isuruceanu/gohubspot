@@ -60,10 +60,11 @@ type ItemProperty struct {
 	Deleted                       bool                 `json:"deleted"`
 	FormField                     bool                 `json:"formField"`
 	DisplayOrder                  int                  `json:"displayOrder"`
-	ReadOnlyValue                 bool                 `json:"readOnlyValue"`
-	ReadOnlyDefinition            bool                 `json:"readOnlyDefinition"`
-	Hidden                        bool                 `json:"hidden"`
-	MutableDefinitionNotDeletable bool                 `json:"mutableDefinitionNotDeletable"`
+	ReadOnlyValue                 bool                 `json:"readOnlyValue,omitempty"`
+	ReadOnlyDefinition            bool                 `json:"readOnlyDefinition,omitempty"`
+	Hidden                        bool                 `json:"hidden,omitempty"`
+	MutableDefinitionNotDeletable bool                 `json:"mutableDefinitionNotDeletable,omitempty"`
+	SearchableInGlobalSearch      bool                 `json:"searchableInGlobalSearch,omitempty"`
 	Calculated                    bool                 `json:"calculated"`
 	ExternalOptions               bool                 `json:"externalOptions"`
 }
