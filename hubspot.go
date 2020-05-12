@@ -115,7 +115,7 @@ func (c *HubspotClient) NewRequest(method, urlStr string, body interface{}) (*ht
 		return nil, fmt.Errorf("urlStr must have begin with a slash, but %q does not", urlStr)
 	}
 
-	u, err := c.BaseURL.Parse(urlStr)
+	u, err := c.BaseURL.Parse(c.BaseURL.Path + urlStr)
 	if err != nil {
 		return nil, err
 	}
